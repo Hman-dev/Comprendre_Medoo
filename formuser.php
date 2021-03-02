@@ -88,6 +88,7 @@ if(isset($_POST['update'])){
            
             
          }
+         
          if(empty($mdp) && empty($mdp2)){
             $database->insert("utilisateur",[
                 'nom'=>$lastname,

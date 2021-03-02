@@ -82,7 +82,7 @@ echo "'<p style=text-align:center;font-size:20px;color:black;> Bonjour cher memb
                 <td><?php echo $email ?></td>
                 <td><?php echo $statut ?></td>
                 <td class="text-center"><a href="formuser.php?GetId=<?php echo $id ?>" class="btn btn-primary">Modifier</a></td>
-                <td class="text-center"><button type="button" class="btn btn-danger deletebtn"><a href="home.php?GetId=<?= $id ?>"> Supprimer</a> </button></td>
+                <td class="text-center"><button type="button" class="btn btn-danger delete"><a href="home.php?GetId=<?= $id ?>"> Supprimer</a> </button></td>
               </tr>
             <?php
             }
@@ -126,15 +126,7 @@ echo "'<p style=text-align:center;font-size:20px;color:black;> Bonjour cher memb
 
 
 </body>
-<script>
-  $(document).ready(function() {
-    $(".deletebtn").click(function() {
-      if (window.confirm('Voulez-vous vraiment supprimer cet utilisateur ?')) {
-        window.location.href = "home.php?delete=" + $(this).attr("id");
-      }
-    })
-  });
-</script>
+
 <script>
         const darkMode = document.getElementById('dark-mode');
         // cette input on va lui dire d'écouter(qd ça change  paremètre d'une fonction 
