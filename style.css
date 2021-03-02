@@ -1,0 +1,81 @@
+.toggle{
+    position: relative; 
+    bottom: 10px;
+    
+    
+   
+ 
+ }
+ .checkbox{
+   display: none;
+ }
+ 
+ .label{
+   height: 26px;
+   width: 50px;
+   background-color: rgba(0, 0, 0, .3);
+   padding: 5px 8px;
+   border-radius: 50px;
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   position: relative ;
+   /* top: 24px; */
+   justify-content: space-between;
+   transform:scale(1.2);
+   box-shadow: 2px 1px 1px #333;
+ }
+ .label .ball {
+   background:rgb(163, 163, 163);
+   border-radius: 50%;
+   height: 26px;
+   width: 26px;
+   position:absolute;
+   left: -1px;
+   transform: translateX(27px);
+   transition: transform 0.4s cubic-bezier(.45, -1.12, .35, 1.78);
+   z-index: 1; 
+ 
+ }
+ 
+ /* Cheked when you click */
+ .checkbox:checked + .label .ball{
+   transform: translateX(0px);
+ }
+ .fa-moon{
+   color: rgb(17, 17, 15);
+ }
+.fa-sun{
+  color: rgb(184, 184, 28);
+}
+ 
+ /* DARK MODE */
+ .dark {
+   background:#2a2929;
+ }
+ body.dark>p{
+  color: #fff;
+ }
+ 
+ @media (min-width:768px){
+    .toggle{
+      position: relative;
+    }
+    
+  }
+  
+  @media (min-width:320px) and (max-width:424px ){
+    .toggle{
+      position: absolute;
+      bottom: 271px;
+      right: 141px;
+    }
+    
+  }
+
+  @media (min-width:425px){
+    .toggle{
+      position: relative;
+    }
+    
+  }

@@ -28,15 +28,18 @@ if(isset($_POST['envoyer'])){
             
 
            echo ('<body onLoad="alert(\'Votre mot de passe a bien été envoyée à l\ adresse mail renseigné!\')">');
+        //    header("location:Exo3_suite_login_Medoo.php");
             
         }else{
             echo ('<body onLoad="alert(\'Mail inexistant.Veuillez rentrer un mail valide\')">');
+            echo '<script type="text/javascript">setTimeout(function(){window.top.location="Exo3_suite_login_Medoo.php"} , 6000);</script>';
         }
 
     }
     else{
         echo ('<body onLoad="alert(\'Veuillez rentrer  un mail valide !\')">');
     }
+    
 }
 
 var_dump(dechex(time()));
