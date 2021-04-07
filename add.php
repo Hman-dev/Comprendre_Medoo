@@ -71,7 +71,9 @@ if(isset($_POST['soummettre'])){
                             'statut'=>$statut,
 
                         ]);
-                        header("location:Exo3_suite_login_Medoo.php");
+                        echo($_SESSION['message'] = "<p>L'utilisateur a bien été ajouté avec succes</p>");
+                        header("location:home.php"); 
+                        // header("location:Exo3_suite_login_Medoo.php");
 
                         var_dump($database);
 

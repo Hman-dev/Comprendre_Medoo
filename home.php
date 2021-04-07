@@ -1,9 +1,12 @@
 <?php
 session_start();
 require_once("database.php");
+//  $id2 = $_GET['GetId'];
+// var_dump($id2);
 
 // print_r($_SESSION);
-echo "'<p style=text-align:center;font-size:20px;color:black;> Bonjour cher membre : " . $_SESSION['utilisateur'] . '<a href="add.php" class="btn btn-primary m-4 ">Ajouter un utilisateur</a>' . '<a href="Exo3_suite_login_Medoo.php" class="btn btn-primary m-4 ">Se déconnecter</a>' . '</p>';
+echo "'<p style=text-align:center;font-size:20px;color:black;> Bonjour cher membre : " . $_SESSION['utilisateur'] 
+. '<a href="add.php" class="btn btn-primary m-4 ">Ajouter un utilisateur</a>' . '<a href="Exo3_suite_login_Medoo.php" class="btn btn-primary m-4 ">Se déconnecter</a>' . '</p>';
 
 ?>
 
@@ -29,6 +32,7 @@ echo "'<p style=text-align:center;font-size:20px;color:black;> Bonjour cher memb
   <div class="container mt-5">
     <?php
     include_once("database.php");
+
     if (!empty($_SESSION['erreur'])) {
       echo '<div class="alert alert-danger text-center" role="alert">
                 ' . $_SESSION['erreur'] . '
@@ -36,9 +40,17 @@ echo "'<p style=text-align:center;font-size:20px;color:black;> Bonjour cher memb
       $_SESSION['erreur'] = "";
     }
 
+      
+    if(!empty($_SESSION['message'])){
+        echo '<div class="alert alert-success" role="alert">
+        '.$_SESSION['message'].'
+    </div>';
+    $_SESSION['message'] = '';
+    }
+?>
 
+          
 
-    ?>
     <div class="toggle">
       <input type="checkbox" class="checkbox" id="dark-mode">
       <label for="dark-mode" class="label">
@@ -68,41 +80,61 @@ echo "'<p style=text-align:center;font-size:20px;color:black;> Bonjour cher memb
             <?php
             $data = $database->select('utilisateur', '*');
             //  Ici on fait une boucle pour afficher tous les informations des utilisateurs contenues dans notre table 
-            foreach ($data as $utilisateur) {
+            
+            foreach ($data as $utilisateur)
+            {
               $id = $utilisateur['id'];
               $nom = $utilisateur['nom'];
               $prenom = $utilisateur['prenom'];
               $email = $utilisateur['email'];
               $statut = $utilisateur['statut'];
             ?>
+           
               <tr>
+              
                 <td><?php echo $id ?></td>
                 <td><?php echo $nom ?></td>
                 <td><?php echo $prenom ?></td>
                 <td><?php echo $email ?></td>
                 <td><?php echo $statut ?></td>
                 <td class="text-center"><a href="formuser.php?GetId=<?php echo $id ?>" class="btn btn-primary">Modifier</a></td>
-                <td class="text-center"><button type="button" class="btn btn-danger delete"><a href="home.php?GetId=<?= $id ?>"> Supprimer</a> </button></td>
+                <td class="text-center"><button type="button" class="btn btn-danger  deletebtn" ><a href="delete.php?id=<?php echo $utilisateur['id'] ?>" class="delete" data-target="#deletmodal">Supprimer</a></button></td>
+                
               </tr>
             <?php
-            }
+            
+            require_once("database.php");
+            // $id2 = $_GET['delete_id'];
+                if((isset($_GET["deleteuser"])) && ! empty($_GET["deleteuser"])){
+                  $id = $_GET['delete_id'];
+                  $utilisateur = $database->get('utilisateur',
+                  ['id','nom','prenom','email','motdepasse','statut'],
+                  ['id'=>$id]);
+                  var_dump($utilisateur['id']);
+
+                  // $database->delete("utilisateur", ["id"=>$id]);
 
 
-            ?>
-          </table>
-          <?php
-          if ((isset($_GET["delete"])) && !empty($_GET["delete"])) {
 
-            $data2 = $database->delete('utilisateur', ['id' => $id]);
-          }
-          ?>
+                  // $data2 = $database->delete('utilisateur',['id'=>$utilisateur['id']]);
+                  // var_dump($data2);
+                  // var_dump($data);
+                }
+            
+            }?>
+            </table>
+            
+
+
+            
+
 
 
 
           <div class="modal fade" id="deletmodal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
-                <form action="home.php" method="GET">
+                <form action="delete.php" method="get">
                   <div class="modal-body">
                     <input type="hidden" name="delete_id" id="delete_id">
                     <h4>Etes vous sur de vouloir supprimer ? </h4>
@@ -126,16 +158,30 @@ echo "'<p style=text-align:center;font-size:20px;color:black;> Bonjour cher memb
 
 
 </body>
+<script>
+  $(document).ready(function() {
+    $(".delete").click(function() {
+      if (window.confirm('Voulez-vous vraiment supprimer cet utilisateur ?')) {
+        window.location.href = "delete.php?id=" + $(this).attr("$utilisateur['id']");
+      }
+    })
+  });
+</script>
 
 <script>
+  
         const darkMode = document.getElementById('dark-mode');
         // cette input on va lui dire d'écouter(qd ça change  paremètre d'une fonction 
         // fléchée au document body tu ajoute une classe
 
         darkMode.addEventListener('change', () => {
             document.body.classList.toggle('dark');
+
             
         });
+        // function test(para){
+        //   return('para');
+        // }
     </script>
 
 </html>

@@ -15,7 +15,7 @@ if(isset($_POST['soummettre'])){
      
     }else{
 
-        if((isset($_POST["nom"])) && isset($_POST["prénom"]) 
+        if(isset($_POST["nom"]) && isset($_POST["prénom"]) 
             && isset($_POST["mail"]) && isset($_POST["mdp"]) && isset($_POST["mdp2"]) 
             && isset($_POST["statut"])){
                 
